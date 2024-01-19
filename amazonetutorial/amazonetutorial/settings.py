@@ -28,7 +28,7 @@ ROBOTSTXT_OBEY = True
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 5
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -57,10 +57,10 @@ ROBOTSTXT_OBEY = True
 #    "amazonetutorial.middlewares.AmazonetutorialDownloaderMiddleware": 543,
 #}
 DOWNLOADER_MIDDLEWARES = {
-    # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    # 'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 500,
-    'rotating_proxies.middlewares.RotatingProxyMiddleware': 300,
-    'rotating_proxies.middlewares.BanDetectionMiddleware': 301,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 500,
+    # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 300,
+    # 'rotating_proxies.middlewares.BanDetectionMiddleware': 301,
     # -- ProxyPool
     # 'scrapy_proxy_pool.middlewares.ProxyPoolMiddleware': 610,
     # 'scrapy_proxy_pool.middlewares.BanDetectionMiddleware': 620,

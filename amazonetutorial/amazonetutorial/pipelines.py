@@ -27,9 +27,9 @@ class AmazonetutorialPipeline:
         self.curr = self.conn.cursor()
     
     def create_table(self):
-        self.curr.execute('''
-                            truncate amazone_tb
-                            ''')
+        # self.curr.execute('''
+        #                     truncate amazone_tb
+        #                     ''')
         self.curr.execute('''
                             CREATE TABLE IF NOT EXISTS amazone_tb(
                                     name text

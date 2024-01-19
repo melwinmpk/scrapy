@@ -5,7 +5,7 @@ from ..items import AmazonetutorialItem
 
 class AmazonSpiderSpider(scrapy.Spider):
     name = "amazon_spider"
-    allowed_domains = ["amazon.com"]
+    allowed_domains = ["amazon.in"]
     #start_urls = ["https://www.amazon.in/s?k=books&i=stripbooks&rh=n%3A976389031%2Cp_n_publication_date%3A2684819031&dc&page=1&crid=150LJ70XOBTBR&qid=1705562243&rnid=2684818031&sprefix=books%2Caps%2C192&ref=sr_pg_1"]
     page_number = 2
 
@@ -17,7 +17,7 @@ class AmazonSpiderSpider(scrapy.Spider):
             # "https://quotes.toscrape.com/page/2/",
         ]
         for url in urls:
-            yield scrapy.Request(url=url, callback=self.parse,meta={"proxy": "http://203.192.217.6:8080"})
+            yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
         items = AmazonetutorialItem()
@@ -33,10 +33,18 @@ class AmazonSpiderSpider(scrapy.Spider):
             yield items
         print("HEY++++++++++++++++++++=======================>")
         next_page = f'https://www.amazon.in/s?k=books&i=stripbooks&rh=n%3A976389031%2Cp_n_publication_date%3A2684819031&dc&page={AmazonSpiderSpider.page_number}&crid=150LJ70XOBTBR&qid=1705562243&rnid=2684818031&sprefix=books%2Caps%2C192&ref=sr_pg_{AmazonSpiderSpider.page_number}'
-        print(next_page)
+        
+
+        # if AmazonSpiderSpider.page_number <= 5:
+        #     AmazonSpiderSpider.page_number += 1
+        #     yield response.follow(next_page, callback = self.parse)
+        # //*[@id="search"]/div[1]/div[1]/div/span[1]/div[1]/div[18]/div/div/span/a[3]/@href
+            
+        new_next_page = response.xpath('//*[contains(concat( " ", @class, " " ), concat( " ", "s-pagination-separator", " " ))]/@href')[0].extract()    
+        print(new_next_page)
         if AmazonSpiderSpider.page_number <= 5:
             AmazonSpiderSpider.page_number += 1
-            yield response.follow(next_page, callback = self.parse)
+            yield response.follow(new_next_page, callback = self.parse)
 
         
         
